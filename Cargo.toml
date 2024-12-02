@@ -6,3 +6,4 @@ edition = "2021"
 [dependencies]
 anyhow = "1"
 nom = "7"
+sorted-vec = "0.8"

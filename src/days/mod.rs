@@ -19,7 +19,7 @@ macro_rules! def_day {
     ($d: ident, desc=$desc: tt, expected=($exp1: expr, $exp2: expr)) => {
         Day {
             name: stringify!($d),
-            description: stringify!($desc),
+            description: $desc,
             part1: Part {
                 func: $d::solve_part1,
                 expected: $exp1,
@@ -34,6 +34,6 @@ macro_rules! def_day {
 }
 
 pub static DAYS: &[Day] = &[
-    def_day!(day01, desc="Historian Hysteria", expected=(None, None)),
+    def_day!(day01, desc="Historian Hysteria", expected=(Some(1834060), None)),
 ];
 
