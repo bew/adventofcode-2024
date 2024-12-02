@@ -16,6 +16,7 @@
       devshells.default = {
         packages = with pkgs; [
           cargo
+          rustc # necessary somehow to get good LSP suggestions 🤔
           gcc
         ];
       };

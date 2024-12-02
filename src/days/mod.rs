@@ -34,6 +34,6 @@ macro_rules! def_day {
 }
 
 pub static DAYS: &[Day] = &[
-    def_day!(day01, desc="Historian Hysteria", expected=(Some(1834060), None)),
+    def_day!(day01, desc="Historian Hysteria", expected=(Some(1834060), Some(21607792))),
 ];
 
