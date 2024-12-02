@@ -41,9 +41,10 @@ pub fn solve_part1(input: &str) -> Option<usize> {
 
 // --------------------------------------------------------
 
+// Copied from https://stackoverflow.com/a/79061120/5655255
 fn skip_nth<I: Iterator>(iter: I, n: usize) -> impl Iterator<Item = I::Item> {
-    iter.enumerate().filter_map(move |(i, item)| {
-        if i == n {
+    iter.enumerate().filter_map(move |(idx, item)| {
+        if idx == n {
             None // Skip the N-th element
         } else {
             Some(item) // Keep all other elements
@@ -81,17 +82,70 @@ pub fn solve_part2(input: &str) -> Option<usize> {
 mod tests {
     use super::*;
 
-    #[test]
-    fn test_parsing() {
-        let input = "\
+    const EXAMPLE_INPUT: &str = "\
 7 6 4 2 1
 1 2 7 8 9
+9 7 6 2 1
+1 3 2 4 5
+8 6 4 4 1
+1 3 6 7 9
 ";
-        let parsed = parse_input(input);
+
+    #[test]
+    fn test_parsing() {
+        let parsed = parse_input(EXAMPLE_INPUT);
         dbg!(&parsed);
         assert_eq!(parsed, vec![
             vec![7, 6, 4, 2, 1],
             vec![1, 2, 7, 8, 9],
+            vec![9, 7, 6, 2, 1],
+            vec![1, 3, 2, 4, 5],
+            vec![8, 6, 4, 4, 1],
+            vec![1, 3, 6, 7, 9],
         ]);
+    }
+
+    #[test]
+    fn test_example_part1() {
+        let res = solve_part1(EXAMPLE_INPUT);
+        assert_eq!(res, Some(2));
+    }
+
+    #[test]
+    fn test_example_part2() {
+        let res = solve_part2(EXAMPLE_INPUT);
+        assert_eq!(res, Some(4));
+    }
+
+    #[test]
+    fn test_report_safety_check() {
+        let safe_report: Report = vec![7, 6, 4, 2, 1];
+        assert!(report_is_safe(&safe_report));
+
+        // `6 2`: delta is too large
+        let unsafe_report1: Report = vec![9, 7, 6, 2, 1];
+        assert!(!report_is_safe(&unsafe_report1));
+
+        // `1 3` is increasing, then `3 2` is decreasing
+        let unsafe_report2: Report = vec![1, 3, 2, 4];
+        assert!(!report_is_safe(&unsafe_report2));
+    }
+
+    #[test]
+    fn test_fixable_report() {
+        // Can remove a `4` to make it safe
+        let fixable_report: Report = vec![8, 6, 4, 4, 1];
+        assert!(can_fix_report(&fixable_report));
+
+        // Cannot be fixed, delta jump is too high
+        let unfixable_report: Report = vec![1, 2, 7, 8, 9];
+        assert!(!can_fix_report(&unfixable_report));
+    }
+
+    #[test]
+    fn test_util_skip_nth() {
+        let base = ["zero", "one", "two", "three"];
+        let updated: Vec<_> = skip_nth(base.iter(), 2).cloned().collect();
+        assert_eq!(updated, vec!["zero", "one", "three"]); // "two" has been skipped
     }
 }
