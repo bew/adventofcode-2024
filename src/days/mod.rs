@@ -1,5 +1,8 @@
 mod day01;
 
+// --- Template
+// mod day00;
+
 pub type PartFn = fn(&str) -> Option<usize>;
 
 pub struct Day {
@@ -35,5 +38,8 @@ macro_rules! def_day {
 
 pub static DAYS: &[Day] = &[
     def_day!(day01, desc="Historian Hysteria", expected=(Some(1834060), Some(21607792))),
+
+    // --- Template
+    // def_day!(day00, desc="DESCRIPTION", expected=(None, None)),
 ];
 
