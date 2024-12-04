@@ -1,5 +1,6 @@
 mod day01;
 mod day02;
+mod day03;
 
 // --- Template
 // mod day00;
@@ -40,6 +41,7 @@ macro_rules! def_day {
 pub static DAYS: &[Day] = &[
     def_day!(day01, desc="Historian Hysteria", expected=(Some(1834060), Some(21607792))),
     def_day!(day02, desc="Red-Nosed Reports", expected=(Some(314), Some(373))),
+    def_day!(day03, desc="Mull It Over", expected=(Some(166905464), Some(72948684))),
 
     // --- Template
     // def_day!(day00, desc="DESCRIPTION", expected=(None, None)),
