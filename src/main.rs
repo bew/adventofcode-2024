@@ -33,7 +33,7 @@ fn run_part(part_name: &str, part: &Part, input: &str) {
         }
         (Some(value), Some(expected)) => {
             if value == expected {
-                println!("✅ {part_name}: {value:?} (same as expected)");
+                println!("✅ {part_name}: {value:?} (== expected)");
             } else {
                 println!("❌ {part_name}: Expected {expected} but got {value} !!");
             }
